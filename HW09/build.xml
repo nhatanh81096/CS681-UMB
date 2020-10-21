@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+
+<project name="hw09" basedir="." default="compile">
+    <property environment="env"/>
+
+    <property name="src" location="src"/>
+    <property name="bin" location="bin"/>
+
+    <path id="classpath">
+        <pathelement location="bin"/>
+    </path>
+    <echo message="${toString:classpath}"/>
+
+    <target name="init">
+        <mkdir dir="${bin}"/>
+    </target>
+
+    <target name="clean" depends="init">
+        <delete includeemptydirs="true">
+            <fileset dir="${bin}" includes="**/*"/>
+        </delete>
+    </target>
+
+    <target name="compile" depends="clean">
+        <javac srcdir="${src}" destdir="${bin}" includeAntRuntime="no">
+            <classpath refid="classpath"/>
+            <include name="edu/umb/cs681/hw09/APFS/*.java"/>
+            <include name="edu/umb/cs681/hw09/FSFoundation/*.java"/>
+        </javac>
+    </target>
+</project>
