@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+
+<project name="hw14" basedir="." default="run">
+    <property environment="env"/>
+
+    <property name="src" location="src"/>
+    <property name="bin" location="bin"/>
+
+    <path id="classpath">
+        <pathelement location="bin"/>
+    </path>
+    <echo message="${toString:classpath}"/>
+
+    <target name="init">
+        <mkdir dir="${bin}"/>
+    </target>
+
+    <target name="clean" depends="init">
+        <delete includeemptydirs="true">
+            <fileset dir="${bin}" includes="**/*"/>
+        </delete>
+    </target>
+
+    <target name="compile" depends="clean">
+        <javac srcdir="${src}" destdir="${bin}" includeAntRuntime="no">
+            <classpath refid="classpath"/>
+            <include name="edu/umb/cs681/hw14/*.java"/>
+        </javac>
+    </target>
+
+    <target name="run" depends="compile">
+        <java classname="edu.umb.cs681.hw14.ThreadSafeBankAccount"
+              classpathref="classpath"
+              fork="true"/>
+    </target>
+
+</project>
